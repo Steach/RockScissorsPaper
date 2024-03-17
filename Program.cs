@@ -175,20 +175,43 @@ namespace RockScissorsPaper
                 if (playerRoundScore > aiRoundScore)
                 {
                     winGames++;
+                    Console.WriteLine("------------------------------------------------------------------------------");
                     Console.WriteLine($"{userName} {playerRoundScore} - {aiRoundScore} AI");
                     Console.WriteLine($"{userName} win this game!\nWin game: {winGames}");
                 }
                 else if (playerRoundScore < aiRoundScore)
                 {
+                    Console.WriteLine("------------------------------------------------------------------------------");
                     Console.WriteLine($"{userName} {playerRoundScore} - {aiRoundScore} AI");
-                    Console.WriteLine("You loose. Be luck in next time!");
+                    Console.WriteLine($"You loose. Be luck in next time!\nWin game: {winGames}");
                 }
                 else
                 {
+                    Console.WriteLine("------------------------------------------------------------------------------");
                     Console.WriteLine($"{userName} {playerRoundScore} - {aiRoundScore} AI");
-                    Console.WriteLine("Win anyone.");
+                    Console.WriteLine($"Win anyone.\nWin game: {winGames}");
                 }
 
+                while (true)
+                {
+                    Console.WriteLine("------------------------------------------------------------------------------");
+                    Console.WriteLine($"Do you want play again? (yes/no)\n");
+                    string answer = Console.ReadLine().ToLower();
+                    if (answer == "yes")
+                        break;
+                    else if (answer == "no")
+                    {
+                        endGame = true;
+
+                        Console.WriteLine("------------------------------------------------------------------------------");
+                        Console.WriteLine($"{userName} Win games: {winGames}");
+                        Console.WriteLine($"Game over.\nGood bye!\n");
+                        break;
+                    }
+
+                    else
+                        Console.WriteLine("Answer must be yes or no.\n");
+                }
             }
             
         }
