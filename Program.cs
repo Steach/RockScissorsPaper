@@ -66,10 +66,129 @@ namespace RockScissorsPaper
 
             while (!endGame)
             {
-                Console.WriteLine($"Choose your weapon: ");
-                Console.WriteLine($"{(TypeOfWaepon)1} - 1, \n{(TypeOfWaepon)2} - 2, \n{(TypeOfWaepon)3} - 3, \n");
-                int userWeapon = int.Parse(Console.ReadLine());
-                Console.WriteLine($"GAME!");
+                int playerRoundScore = 0;
+                int aiRoundScore = 0;
+                int rounds = 0;
+                Random randomize = new Random();
+
+                while (rounds < 3)
+                {
+                    Console.WriteLine("------------------------------------------------------------------------------");
+                    Console.WriteLine($"Choose your weapon: ");
+                    Console.WriteLine($"{(TypeOfWaepon)1} - 1, \n{(TypeOfWaepon)2} - 2, \n{(TypeOfWaepon)3} - 3, \n");
+                    int userWeapon = int.Parse(Console.ReadLine());
+                    if (userWeapon != 1 && userWeapon != 2 && userWeapon != 3)
+                    {
+                        Console.WriteLine("You must choose 1, 2 or 3:");
+                        continue;
+                    }
+                    
+                    int aiWeapon = randomize.Next(1, 4);
+
+                    switch (userWeapon)
+                    {
+                        case 1:
+                            if (aiWeapon == 1)
+                            {
+                                playerRoundScore++;
+                                aiRoundScore++;
+                                Console.WriteLine("------------------------------------------------------------------------------");
+                                Console.WriteLine($"AI weapon: {aiWeapon}");
+                                Console.WriteLine("Weapons is equal");
+                            }
+                            if (aiWeapon == 2)
+                            {
+                                playerRoundScore++;
+                                Console.WriteLine("------------------------------------------------------------------------------");
+                                Console.WriteLine($"AI weapon: {aiWeapon}");
+                                Console.WriteLine($"{userName} win this round!");
+                            }
+                            if(aiWeapon == 3)
+                            {
+                                aiRoundScore++;
+                                Console.WriteLine("------------------------------------------------------------------------------");
+                                Console.WriteLine($"AI weapon: {aiWeapon}");
+                                Console.WriteLine($"AI win this round!");
+                            }
+                            rounds += 1;
+                            Console.WriteLine("------------------------------------------------------------------------------");
+                            Console.WriteLine($"Round {rounds}: \nScore:\n{userName}: {playerRoundScore};\nAI: {aiRoundScore}");
+                            break;
+                        case 2:
+                            if (aiWeapon == 1)
+                            {
+                                aiRoundScore++;
+                                Console.WriteLine("------------------------------------------------------------------------------");
+                                Console.WriteLine($"AI weapon: {aiWeapon}");
+                                Console.WriteLine("AI win this round!");
+                            }
+                            if (aiWeapon == 2)
+                            {
+                                playerRoundScore++;
+                                aiRoundScore++;
+                                Console.WriteLine("------------------------------------------------------------------------------");
+                                Console.WriteLine($"AI weapon: {aiWeapon}");
+                                Console.WriteLine($"Weapons is equal");
+                            }
+                            if (aiWeapon == 3)
+                            {
+                                playerRoundScore++;
+                                Console.WriteLine("------------------------------------------------------------------------------");
+                                Console.WriteLine($"AI weapon: {aiWeapon}");
+                                Console.WriteLine($"{userName} win this round!");
+                            }
+                            rounds += 1;
+                            Console.WriteLine("------------------------------------------------------------------------------");
+                            Console.WriteLine($"Round {rounds}: \nScore:\n{userName}: {playerRoundScore};\nAI: {aiRoundScore}");
+                            break;
+                        case 3:
+                            if (aiWeapon == 1)
+                            {
+                                playerRoundScore++;
+                                Console.WriteLine("------------------------------------------------------------------------------");
+                                Console.WriteLine($"AI weapon: {aiWeapon}");
+                                Console.WriteLine($"{userName} win this round!");
+                            }
+                            if (aiWeapon == 2)
+                            {
+                                aiRoundScore++;
+                                Console.WriteLine("------------------------------------------------------------------------------");
+                                Console.WriteLine($"AI weapon: {aiWeapon}");
+                                Console.WriteLine($"AI win this round!");
+                            }
+                            if (aiWeapon == 3)
+                            {
+                                playerRoundScore++;
+                                aiRoundScore++;
+                                Console.WriteLine("------------------------------------------------------------------------------");
+                                Console.WriteLine($"AI weapon: {aiWeapon}");
+                                Console.WriteLine($"Weapons is equal");
+                            }
+                            rounds += 1;
+                            Console.WriteLine("------------------------------------------------------------------------------");
+                            Console.WriteLine($"Round {rounds}: \nScore:\n{userName}: {playerRoundScore};\nAI: {aiRoundScore}");
+                            break;
+                    }
+     
+                }
+                playedRounds++;
+                if (playerRoundScore > aiRoundScore)
+                {
+                    winGames++;
+                    Console.WriteLine($"{userName} {playerRoundScore} - {aiRoundScore} AI");
+                    Console.WriteLine($"{userName} win this game!\nWin game: {winGames}");
+                }
+                else if (playerRoundScore < aiRoundScore)
+                {
+                    Console.WriteLine($"{userName} {playerRoundScore} - {aiRoundScore} AI");
+                    Console.WriteLine("You loose. Be luck in next time!");
+                }
+                else
+                {
+                    Console.WriteLine($"{userName} {playerRoundScore} - {aiRoundScore} AI");
+                    Console.WriteLine("Win anyone.");
+                }
+
             }
             
         }
