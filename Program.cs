@@ -13,8 +13,7 @@ namespace RockScissorsPaper
             int playedRounds = 0;
             int winGames = 0;
 
-            Console.WriteLine("Hello, this is Rock, Scissors, Paper game!\n");
-
+            WelcomeText();
             userName = EnterPlayerName();
             userAge = EnterPlayerAge();
             DisplayPlayerInformation(userName, userAge, playedRounds, winGames);
@@ -22,6 +21,10 @@ namespace RockScissorsPaper
             Game(ref endGame, userName, winGames, ref playedRounds);
         }
 
+        static void WelcomeText()
+        {
+            Console.WriteLine("Hello, this is Rock, Scissors, Paper game!\n");
+        }
         static string EnterPlayerName()
         {
             string userName;
