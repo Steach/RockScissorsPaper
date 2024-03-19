@@ -13,8 +13,8 @@ namespace RockScissorsPaper
             int playedRounds = 0;
             int winGames = 0;
 
-            //Console.SetWindowSize(80, 50);
             Console.WindowHeight = 50;
+
 
             WelcomeText();
             userName = EnterPlayerName();
@@ -26,7 +26,29 @@ namespace RockScissorsPaper
 
         static void WelcomeText()
         {
-            Console.WriteLine("Hello, this is Rock, Scissors, Paper game!\n");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine($"_|_|_| ");
+            Console.WriteLine($"_|    _|    _|_|      _|_|_|  _|  _|");
+            Console.WriteLine($"_|_|_|    _|    _|  _|        _|_|");
+            Console.WriteLine($"_|    _|  _|    _|  _|        _|  _|");
+            Console.WriteLine($"_|    _|    _|_|      _|_|_|  _|    _|");
+            Console.WriteLine($"");
+            Console.WriteLine($"  _|_|_|            _|");
+            Console.WriteLine($"_|          _|_|_|        _|_|_|    _|_|_|    _|_|    _|  _|_|    _|_|_|");
+            Console.WriteLine($"  _|_|    _|        _|  _|_|      _|_|      _|    _|  _|_|      _|_|");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"      _|  _|        _|      _|_|      _|_|  _|    _|  _|            _|_|");
+            Console.WriteLine($"_|_|_|      _|_|_|  _|  _|_|_|    _|_|_|      _|_|    _|        _|_|_|");
+            Console.WriteLine($"");
+            Console.WriteLine($"_|_|_|");
+            Console.WriteLine($"_|    _|    _|_|_|  _|_|_|      _|_|    _|  _|_|");
+            Console.WriteLine($"_|_|_|    _|    _|  _|    _|  _|_|_|_|  _|_|");
+            Console.WriteLine($"_|        _|    _|  _|    _|  _|        _|");
+            Console.WriteLine($"_|          _|_|_|  _|_|_|      _|_|_|  _|");
+            Console.WriteLine($"                    _|");
+            Console.WriteLine($"                    _|");
+            Console.WriteLine($"");
+            Console.ResetColor();
         }
 
         static string EnterPlayerName()
@@ -65,6 +87,7 @@ namespace RockScissorsPaper
             while (true)
             {
                 Console.WriteLine($"\n============================Are you ready?====================================");
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write($"Do you want play (yes/no) ? ");
                 string answer = Console.ReadLine().ToLower();
                 if (answer == "yes")
@@ -75,26 +98,29 @@ namespace RockScissorsPaper
 
                     Console.WriteLine("==============================================================================");
                     Console.WriteLine($"{userName} Win games: {winGames}");
-                    Console.WriteLine($"Game over.\n{userName} Good bye!\n");
+                    DisplayGameOver();
+                    //Console.WriteLine($"Game over.\n{userName} Good bye!\n");
                     break;
                 }
-
                 else
                     Console.WriteLine("Answer must be yes or no.\n");
+                Console.ResetColor();
                 Console.WriteLine("==============================================================================\n");
             }
         }
 
         static void DisplayPlayerInformation(string userName, int userAge, int playedRounds, int winGames)
         {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\n==========================Player Information==================================");
             Console.WriteLine($"User Name: {userName}");
             Console.WriteLine($"User Age: {userAge}");
             Console.WriteLine($"Played game rounds: {playedRounds}");
             Console.WriteLine($"Win Game: {winGames}");
             Console.WriteLine("==============================================================================\n");
+            Console.ResetColor();
         }
-
         static void DisplayWeapon(int weaponID)
         {
             switch (weaponID)
@@ -188,7 +214,52 @@ namespace RockScissorsPaper
             {
                 Console.WriteLine("You must choose 1, 2 or 3:");
             }
+            Console.Clear();
             return userWaepon;
+        }
+
+        static void DisplayedTextEqual()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Weapons is equal");
+            Console.ResetColor();
+
+        }
+
+        static void DisplayedTextPlayerWin(string userName)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"{userName} win this round!");
+            Console.ResetColor();
+        }
+
+        static void DisplayedTextAIWin()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"AI win this round!");
+            Console.ResetColor();
+        }
+
+        static void DisplayRoundInfoText(int rounds, string userName, int playerRoundScore, int aiRoundScore)
+        {
+            Console.WriteLine($"Round {rounds + 1}: \nScore: {userName} {playerRoundScore} - {aiRoundScore} AI");
+        }
+
+        static void DisplayGameOver()
+        {
+            Console.WriteLine($"\n");
+            Console.WriteLine($" _|_|_|");
+            Console.WriteLine($"_|       _|_|_| _|_|_| _|_|    _|_|");
+            Console.WriteLine($"_| _|_| _|   _| _|   _|   _| _|_|_|_|");
+            Console.WriteLine($"_|   _| _|   _| _|   _|   _| _|");
+            Console.WriteLine($" _|_|_|  _|_|_| _|   _|   _|   _|_|_|");
+
+            Console.WriteLine($" _|_|");
+            Console.WriteLine($"_|   _| _|   _|   _|_|   _|  _|_|");
+            Console.WriteLine($"_|   _| _|   _| _|_|_|_| _|_|");
+            Console.WriteLine($"_|   _|  _| _|  _|       _|");
+            Console.WriteLine($" _|_|     _|     _|_|_|  _|");
+            Console.WriteLine($"\n");
         }
 
         static void Game(ref bool endGame, string userName, int winGames, ref int playedRounds, int userAge)
@@ -209,8 +280,7 @@ namespace RockScissorsPaper
                     Console.Clear();
                     
                     DisplayPlayerInformation(userName, userAge, playedRounds, winGames);
-                    
-                    Console.WriteLine($"Round {rounds+1}: \nScore: {userName} {playerRoundScore} = {aiRoundScore} AI");
+                    DisplayRoundInfoText(rounds, userName, playerRoundScore, aiRoundScore);
                     
                     rounds++;
                     
@@ -228,16 +298,16 @@ namespace RockScissorsPaper
                     {
                         case 1:
                             if (aiWeapon == 1)
-                                Console.WriteLine("Weapons is equal");
+                                DisplayedTextEqual();
                             if (aiWeapon == 2)
                             {
                                 playerRoundScore++;
-                                Console.WriteLine($"{userName} win this round!");
+                                DisplayedTextPlayerWin(userName);
                             }
                             if (aiWeapon == 3)
                             {
                                 aiRoundScore++;
-                                Console.WriteLine($"AI win this round!");
+                                DisplayedTextAIWin();
                             }
                             break;
 
@@ -245,14 +315,14 @@ namespace RockScissorsPaper
                             if (aiWeapon == 1)
                             {
                                 aiRoundScore++;
-                                Console.WriteLine("AI win this round!");
+                                DisplayedTextAIWin();
                             }
                             if (aiWeapon == 2)
-                                Console.WriteLine($"Weapons is equal");
+                                DisplayedTextEqual();
                             if (aiWeapon == 3)
                             {
                                 playerRoundScore++;
-                                Console.WriteLine($"{userName} win this round!");
+                                DisplayedTextPlayerWin(userName);
                             }
                             break;
 
@@ -260,15 +330,15 @@ namespace RockScissorsPaper
                             if (aiWeapon == 1)
                             {
                                 playerRoundScore++;
-                                Console.WriteLine($"{userName} win this round!");
+                                DisplayedTextPlayerWin(userName);
                             }
                             if (aiWeapon == 2)
                             {
                                 aiRoundScore++;
-                                Console.WriteLine($"AI win this round!");
+                                DisplayedTextAIWin();
                             }
                             if (aiWeapon == 3)
-                                Console.WriteLine($"Weapons is equal");
+                                DisplayedTextEqual();
                             break;
                     }
 
@@ -281,26 +351,25 @@ namespace RockScissorsPaper
 
                 Console.Clear();
 
-                DisplayPlayerInformation(userName, userAge, playedRounds, winGames);
-
-                Console.WriteLine("\n==============================================================================\n");
-                Console.WriteLine($"{userName} | {(TypeOfWaepon)userWeapon} VS {(TypeOfWaepon)aiWeapon} | AI\n");
-
-                Console.WriteLine("==============================================================================");
-                Console.WriteLine($"{userName} {playerRoundScore} = {aiRoundScore} AI");
-
                 if (playerRoundScore > aiRoundScore)
                 {
                     winGames++;
-                    Console.WriteLine($"{userName} win this game!\nWin game: {winGames}");
+                    DisplayPlayerInformation(userName, userAge, playedRounds, winGames);
+                    DisplayRoundInfoText(rounds, userName, playerRoundScore, aiRoundScore);
+                    DisplayedTextPlayerWin(userName);
                 }
                 else if (playerRoundScore < aiRoundScore)
                 {
-                    Console.WriteLine($"You loose. Be luck in next time!\nWin game: {winGames}");
+                    DisplayPlayerInformation(userName, userAge, playedRounds, winGames);
+                    DisplayRoundInfoText(rounds, userName, playerRoundScore, aiRoundScore);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"You loose. Be luck in next time!");
+                    Console.ResetColor();
                 }
                 else
                 {
-                    Console.WriteLine($"Win anyone.\nWin game: {winGames}");
+                    DisplayPlayerInformation(userName, userAge, playedRounds, winGames);
+                    DisplayRoundInfoText(rounds, userName, playerRoundScore, aiRoundScore);
                 }
 
                 ReadyToGame(ref endGame, userName, winGames);
