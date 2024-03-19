@@ -13,6 +13,9 @@ namespace RockScissorsPaper
             int playedRounds = 0;
             int winGames = 0;
 
+            //Console.SetWindowSize(80, 50);
+            Console.WindowHeight = 50;
+
             WelcomeText();
             userName = EnterPlayerName();
             userAge = EnterPlayerAge();
@@ -92,6 +95,102 @@ namespace RockScissorsPaper
             Console.WriteLine("==============================================================================\n");
         }
 
+        static void DisplayWeapon(int weaponID)
+        {
+            switch (weaponID)
+            {
+                case 1:
+                    DisplayRock();
+                    break;
+                case 2:
+                    DisplayScissors();
+                    break;
+                case 3:
+                    DisplayPaper();
+                    break;
+            }
+        }
+
+        static void DisplayPaper()
+        {
+            Console.WriteLine("\n");
+            Console.WriteLine("           ███");
+            Console.WriteLine("       ████░░░███");
+            Console.WriteLine("      █░░░█░░░█░░█");
+            Console.WriteLine("      █░░░█░░░█░░█");
+            Console.WriteLine("      █░░░█░░░█░░█ ██");
+            Console.WriteLine("      █░░░█░░░█░░░█░░█");
+            Console.WriteLine("      █░░░█░░░█░░░█░░█");
+            Console.WriteLine("      █░░░█░░░█░░░█░░█");
+            Console.WriteLine(" ███  █░░░█░░░█░░░█░░░█");
+            Console.WriteLine("█░░░█ █░░░█░░░█░░░█░░░█");
+            Console.WriteLine("█░░░░██░░░█░░░█░░░█░░░█");
+            Console.WriteLine(" █░░░░░░░░░░░░░░░░░░░░█");
+            Console.WriteLine(" █░░░░░░░░░░░░░░░░░░░░█");
+            Console.WriteLine("  █░░░░░░░░░░░░░░░░░░░█");
+            Console.WriteLine("  █░░░░░░░░░░░░░░░░░░░█");
+            Console.WriteLine("   █░░░░░░░░░░░░░░░░░█");
+            Console.WriteLine("    █░░░░░░░░░░░░░░░█");
+            Console.WriteLine("     ███████████████");
+            Console.WriteLine("\n");
+        }
+
+        static void DisplayRock()
+        {
+            Console.WriteLine("\n");
+            Console.WriteLine("           ███ ███");
+            Console.WriteLine("       ███ █░█ █░█ ███");
+            Console.WriteLine("      ██░██░░░█░░░██░██");
+            Console.WriteLine("      █░░░█░░░█░░░█░░░█");
+            Console.WriteLine("  ███████░█░░░█░░░█░░██");
+            Console.WriteLine(" █░░░░░███░███░███░██░█");
+            Console.WriteLine(" █░░░████░░░░░░░░░░░░░█");
+            Console.WriteLine("  █░░█░░░░░░░░░░░░░░░░█");
+            Console.WriteLine("  █░░░░░░░░░░░░░░░░░░░█");
+            Console.WriteLine("   █░░░░░░░░░░░░░░░░░█");
+            Console.WriteLine("    █░░░░░░░░░░░░░░░█");
+            Console.WriteLine("     ███████████████");
+            Console.WriteLine("\n");
+        }
+
+        static void DisplayScissors()
+        {
+            Console.WriteLine("\n");
+            Console.WriteLine("            ███");
+            Console.WriteLine("    ███    █░░░█");
+            Console.WriteLine("   █░░░█   █░░░█");
+            Console.WriteLine("   █░░░█   █░░░█");
+            Console.WriteLine("    █░░░█  █░░░█");
+            Console.WriteLine("    █░░░█  █░░░█");
+            Console.WriteLine("    █░░░█  █░░░█");
+            Console.WriteLine("     █░░░█ █░░░█");
+            Console.WriteLine("     █░░░█ █░░░█");
+            Console.WriteLine("     █░░░█ █░░░███ ███");
+            Console.WriteLine("    ██░░░█ █░░█░░░█░░░█");
+            Console.WriteLine("   █░░░░░░░█████░░█░░██");
+            Console.WriteLine("   █░░░░░░██░░░░██░██░█");
+            Console.WriteLine("  █░░░░░██░░░░░░█░░░░░█");
+            Console.WriteLine("  █░░░███░░░░███░░░░░░█");
+            Console.WriteLine("   ███░░░░░███░░░░░░░█");
+            Console.WriteLine("    █░░░████░░░░░░░░█");
+            Console.WriteLine("     ███████████████");
+            Console.WriteLine("\n");
+        }
+
+        static int ChooseWaepon()
+        {
+            int userWaepon = 0;
+            
+            Console.WriteLine($"Choose your weapon (enter a number of weapon): ");
+            Console.WriteLine($"1. {(TypeOfWaepon)1} \n2. {(TypeOfWaepon)2} \n3. {(TypeOfWaepon)3} \n");
+            
+            while (!int.TryParse(Console.ReadLine(), out userWaepon) || (userWaepon != 1 && userWaepon != 2 && userWaepon != 3))
+            {
+                Console.WriteLine("You must choose 1, 2 or 3:");
+            }
+            return userWaepon;
+        }
+
         static void Game(ref bool endGame, string userName, int winGames, ref int playedRounds, int userAge)
         {
             while (!endGame)
@@ -116,21 +215,14 @@ namespace RockScissorsPaper
                     rounds++;
                     
                     Console.WriteLine($"=================================Round {rounds}======================================");
-                    Console.WriteLine($"Choose your weapon (enter a number of weapon): ");
-                    Console.WriteLine($"1. {(TypeOfWaepon)1} \n2. {(TypeOfWaepon)2} \n3. {(TypeOfWaepon)3} \n");
-                    
-                    userWeapon = int.Parse(Console.ReadLine());
-                   
-                    if (userWeapon != 1 && userWeapon != 2 && userWeapon != 3)
-                    {
-                        Console.WriteLine("You must choose 1, 2 or 3:");
-                        continue;
-                    }
 
+                    userWeapon = ChooseWaepon();
                     aiWeapon = randomize.Next(1, 4);
 
                     Console.WriteLine("\n==============================================================================\n");
                     Console.WriteLine($"{userName} | {(TypeOfWaepon)userWeapon} VS {(TypeOfWaepon)aiWeapon} | AI\n");
+                    DisplayWeapon(userWeapon);
+                    DisplayWeapon(aiWeapon);
 
                     switch (userWeapon)
                     {
