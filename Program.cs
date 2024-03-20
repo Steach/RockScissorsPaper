@@ -221,9 +221,9 @@ namespace RockScissorsPaper
         {
             int userWaepon = 0;
             
-            Console.WriteLine($"Choose your weapon (enter a number of weapon): ");
             Console.WriteLine($"1. {(TypeOfWaepon)1} \n2. {(TypeOfWaepon)2} \n3. {(TypeOfWaepon)3} \n");
-            
+            Console.Write($"Choose your weapon (enter a number of weapon): ");
+
             while (!int.TryParse(Console.ReadLine(), out userWaepon) || (userWaepon != 1 && userWaepon != 2 && userWaepon != 3))
             {
                 Console.WriteLine("You must choose 1, 2 or 3:");
