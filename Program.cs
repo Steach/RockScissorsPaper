@@ -17,6 +17,7 @@ namespace RockScissorsPaper
 
 
             WelcomeText();
+            DisplayRules();
             userName = EnterPlayerName();
             userAge = EnterPlayerAge();
             DisplayPlayerInformation(userName, userAge, playedRounds, winGames);
@@ -96,10 +97,10 @@ namespace RockScissorsPaper
                 {
                     endGame = true;
 
+                    Console.ResetColor();
                     Console.WriteLine("==============================================================================");
-                    Console.WriteLine($"{userName} Win games: {winGames}");
+                    Console.WriteLine($"Good bey {userName}, come again.\nWin games: {winGames}");
                     DisplayGameOver();
-                    //Console.WriteLine($"Game over.\n{userName} Good bye!\n");
                     break;
                 }
                 else
@@ -203,6 +204,19 @@ namespace RockScissorsPaper
             Console.WriteLine("\n");
         }
 
+        static void DisplayRules()
+        {
+            Console.WriteLine("==============================================================================\n");
+            Console.WriteLine("Game Rules:");
+            Console.WriteLine("\n1. The game has 3 types of weapons:" +
+                " Rock, Scissors, Paper\r\n" +
+                "2. Paper beats rock, but loses to scissors\r\n" +
+                "3. Scissors beat paper, but lose to rock\r\n" +
+                "4. Rock beats scissors, but loses to paper");
+            Console.WriteLine("5. The user or AI awarded a point for winning \n   only in case of two wins and one loss, \n   or three wins and zero losses in the battle.");
+            Console.WriteLine("\n==============================================================================\n");
+        }
+
         static int ChooseWaepon()
         {
             int userWaepon = 0;
@@ -229,14 +243,66 @@ namespace RockScissorsPaper
         static void DisplayedTextPlayerWin(string userName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{userName} win this round!");
+            Console.WriteLine($"{userName}. {WinText()}");
             Console.ResetColor();
+        }
+
+        static string WinText()
+        {
+            Random randomize = new Random();
+            int randomText = randomize.Next(1, 4);
+            string text = "";
+            switch (randomText)
+            {
+                case 1:
+                    {
+                        text = "Congratulations on your win! You played incredibly well.";
+                        break;
+                    }
+                case 2:
+                    {
+                        text = "So proud of you! You worked hard and it paid off.";
+                        break;
+                    }
+                case 3:
+                    {
+                        text = "You deserve this win! You're a true champion.";
+                        break;
+                    }
+            }
+            return text;
+        }
+
+        static string LooseText()
+        {
+            Random randomize = new Random();
+            int randomText = randomize.Next(1, 4);
+            string text = "";
+            switch (randomText)
+            {
+                case 1:
+                    {
+                        text = "Tough loss, but you played your heart out. There's always next time.";
+                        break;
+                    }
+                case 2:
+                    {
+                        text = "Don't be too hard on yourself. You gave it your all and that's what matters.";
+                        break;
+                    }
+                case 3:
+                    {
+                        text = "We're all proud of you. You showed great sportsmanship and that's more important than winning.";
+                        break;
+                    }
+            }
+            return text;
         }
 
         static void DisplayedTextAIWin()
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"AI win this round!");
+            Console.WriteLine($"{LooseText()}");
             Console.ResetColor();
         }
 
@@ -275,7 +341,7 @@ namespace RockScissorsPaper
 
                 Console.Clear();
 
-                while (playerRoundScore < 2 && aiRoundScore < 2)
+                while (rounds < 3 & playerRoundScore <= 2 && aiRoundScore <= 2)
                 {
                     Console.Clear();
                     
@@ -302,12 +368,12 @@ namespace RockScissorsPaper
                             if (aiWeapon == 2)
                             {
                                 playerRoundScore++;
-                                DisplayedTextPlayerWin(userName);
+                                Console.WriteLine($"{userName} win this round.");
                             }
                             if (aiWeapon == 3)
                             {
                                 aiRoundScore++;
-                                DisplayedTextAIWin();
+                                Console.WriteLine($"AI win this round.");
                             }
                             break;
 
@@ -315,14 +381,14 @@ namespace RockScissorsPaper
                             if (aiWeapon == 1)
                             {
                                 aiRoundScore++;
-                                DisplayedTextAIWin();
+                                Console.WriteLine($"AI win this round.");
                             }
                             if (aiWeapon == 2)
                                 DisplayedTextEqual();
                             if (aiWeapon == 3)
                             {
                                 playerRoundScore++;
-                                DisplayedTextPlayerWin(userName);
+                                Console.WriteLine($"{userName} win this round.");
                             }
                             break;
 
@@ -330,12 +396,12 @@ namespace RockScissorsPaper
                             if (aiWeapon == 1)
                             {
                                 playerRoundScore++;
-                                DisplayedTextPlayerWin(userName);
+                                Console.WriteLine($"{userName} win this round.");
                             }
                             if (aiWeapon == 2)
                             {
                                 aiRoundScore++;
-                                DisplayedTextAIWin();
+                                Console.WriteLine($"AI win this round.");
                             }
                             if (aiWeapon == 3)
                                 DisplayedTextEqual();
@@ -351,25 +417,26 @@ namespace RockScissorsPaper
 
                 Console.Clear();
 
-                if (playerRoundScore > aiRoundScore)
+                if (playerRoundScore > aiRoundScore && playerRoundScore >= 2)
                 {
                     winGames++;
                     DisplayPlayerInformation(userName, userAge, playedRounds, winGames);
                     DisplayRoundInfoText(rounds, userName, playerRoundScore, aiRoundScore);
                     DisplayedTextPlayerWin(userName);
                 }
-                else if (playerRoundScore < aiRoundScore)
+                else if (playerRoundScore < aiRoundScore && aiRoundScore >= 2)
                 {
                     DisplayPlayerInformation(userName, userAge, playedRounds, winGames);
                     DisplayRoundInfoText(rounds, userName, playerRoundScore, aiRoundScore);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"You loose. Be luck in next time!");
-                    Console.ResetColor();
+                    DisplayedTextAIWin();
                 }
                 else
                 {
                     DisplayPlayerInformation(userName, userAge, playedRounds, winGames);
-                    DisplayRoundInfoText(rounds, userName, playerRoundScore, aiRoundScore);
+                    DisplayRoundInfoText(rounds-1, userName, playerRoundScore, aiRoundScore);
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"The match ended in a draw.");
+                    Console.ResetColor();
                 }
 
                 ReadyToGame(ref endGame, userName, winGames);
